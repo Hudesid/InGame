@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from .serializers import ProductSerializer, Product
 from .versioning import CustomHeaderVersioning
@@ -8,6 +10,7 @@ from apps.users.custom_response_decorator import custom_response
 
 
 @custom_response('product_list')
+@method_decorator(cache_page(60*15), name='get')
 class ProductListAPIView(ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -21,6 +24,7 @@ class ProductListAPIView(ListAPIView):
 
 
 @custom_response('product_detail')
+@method_decorator(cache_page(60*15), name='get')
 class ProductRetrieveAPIView(RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer

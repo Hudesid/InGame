@@ -5,9 +5,12 @@ from .versioning import CustomHeaderVersioning
 from .paginations import CustomPageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 
 @custom_response('desktop_list')
+@method_decorator(cache_page(60*15), name='get')
 class DesktopListAPIView(ListAPIView):
     queryset = Desktop.objects.all()
     serializer_class = DesktopSerializer
@@ -20,6 +23,7 @@ class DesktopListAPIView(ListAPIView):
 
 
 @custom_response('desktop_detail')
+@method_decorator(cache_page(60*15), name='get')
 class DesktopRetrieveAPIView(RetrieveAPIView):
     queryset = Desktop.objects.all()
     serializer_class = DesktopSerializer
