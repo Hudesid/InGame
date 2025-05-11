@@ -4,5 +4,5 @@ from .views import DesktopListAPIView, DesktopRetrieveAPIView
 
 urlpatterns = [
     path('desktops/', DesktopListAPIView.as_view(), name='desktops'),
-    path('desktop/<int:pk>/', DesktopRetrieveAPIView.as_view(), name='desktop'),
+    path('desktop/<str:slug>/', DesktopRetrieveAPIView.as_view(), name='desktop'),
 ]

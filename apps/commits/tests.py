@@ -4,7 +4,7 @@ from rest_framework.test import APIClient, APITestCase
 
 class CommentListAndCreateAPITestCase(APITestCase):
     def setUp(self):
-        self.url = "api/comments/"
+        self.url = "api/commit-from-clients/"
         self.client = APIClient()
 
 
@@ -29,7 +29,7 @@ class CommentListAndCreateAPITestCase(APITestCase):
 
 class CommentRetrieveAPITestCase(APITestCase):
     def setUp(self):
-        self.url = "api/comment/{id}"
+        self.url = "api/commit-from-clients/{id}"
         self.client = APIClient()
 
     def comment_retrieve_get(self):

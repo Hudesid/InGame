@@ -7,7 +7,7 @@ from apps.delivery_methods.serializers import DeliveryMethodSerializer
 
 
 class DesktopShortSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='desktop', lookup_field='pk')
+    url = serializers.HyperlinkedIdentityField(view_name='desktop', lookup_field='slug')
 
     class Meta:
         model = Desktop
@@ -15,7 +15,7 @@ class DesktopShortSerializer(serializers.ModelSerializer):
 
 
 class ProductShortSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='product', lookup_field='pk')
+    url = serializers.HyperlinkedIdentityField(view_name='product', lookup_field='slug')
 
     class Meta:
         model = Desktop

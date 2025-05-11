@@ -5,6 +5,7 @@ from apps.statuses.models import Status
 from apps.product_types.models import ProductType
 from apps.categories.models import Category
 from apps.brands.models import Brand
+from django.utils.text import slugify
 
 
 class BaseModel(models.Model):
@@ -33,10 +34,17 @@ class Product(BaseModel):
     attributes = models.ManyToManyField(Attribute, related_name="products")
     statuses = models.ManyToManyField(Status, related_name="products")
     type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, related_name="products", null=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True)
 
 
     def __str__(self):
         return f"Uz: {self.name_uz}. Ru: {self.name_ru}."
+
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name_uz)
+        super().save(*args, **kwargs)
 
 
 class ProductImage(BaseModel):

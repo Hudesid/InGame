@@ -20,8 +20,11 @@ class DesktopAdmin(admin.ModelAdmin):
     list_display = ('id', 'name_uz', 'name_ru', 'price', 'type', 'created_at')
     list_filter = ('created_at', 'updated_at', 'category', 'desktop_types', 'attributes', 'price', 'products', 'statuses', 'type')
     search_fields = ('id', 'name_uz', 'name_ru', 'description_uz', 'description_ru')
-    inlines = [DesktopImageInLine, FpsInLine]
     readonly_fields = ('id', 'created_at', 'updated_at')
+    inlines = [DesktopImageInLine, FpsInLine]
+    prepopulated_fields = {
+        "slug": ('name_uz',)
+    }
 
 
 @admin.register(DesktopImage)

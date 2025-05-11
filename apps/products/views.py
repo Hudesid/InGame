@@ -25,3 +25,4 @@ class ProductRetrieveAPIView(RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     versioning_class = CustomHeaderVersioning
+    lookup_field = "slug"

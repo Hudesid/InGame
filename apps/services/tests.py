@@ -4,7 +4,7 @@ from rest_framework.test import APIClient, APITestCase
 
 class ServiceCreateAPITestCase(APITestCase):
     def setUp(self):
-        self.url = "api/service/"
+        self.url = "api/services/"
         self.client = APIClient()
 
     def service_create_post(self):

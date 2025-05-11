@@ -14,6 +14,9 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('created_at', 'updated_at', 'discount', 'price', 'category', 'brand', 'attributes', 'statuses', 'type')
     search_fields = ('id', 'name_uz', 'name_ru', 'description_uz', 'description_ru')
     readonly_fields = ('id', 'created_at', 'updated_at')
+    prepopulated_fields = {
+        "slug": ('name_uz',)
+    }
     inlines = [ProductImageInLine]
 
 

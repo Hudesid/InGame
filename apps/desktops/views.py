@@ -24,3 +24,4 @@ class DesktopRetrieveAPIView(RetrieveAPIView):
     queryset = Desktop.objects.all()
     serializer_class = DesktopSerializer
     versioning_class = CustomHeaderVersioning
+    lookup_field = "slug"

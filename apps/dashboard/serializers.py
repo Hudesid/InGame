@@ -268,7 +268,7 @@ class DesktopTypeSerializer(serializers.ModelSerializer):
 class DesktopShortSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name='desktop',
-        lookup_field='pk'
+        lookup_field='slug'
     )
 
     class Meta:

@@ -1,5 +1,6 @@
 from django.core.validators import RegexValidator
 from django.db import models
+from django.utils.text import slugify
 from apps.categories.models import Category
 from apps.products.models import Product
 from apps.statuses.models import Status
@@ -33,10 +34,17 @@ class Desktop(BaseModel):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     products = models.ManyToManyField(Product, related_name="desktops")
     statuses = models.ManyToManyField(Status, related_name="desktops")
+    slug = models.SlugField(unique=True, blank=True)
     
 
     def __str__(self):
         return f"Uz: {self.name_uz}, Ru: {self.name_ru}"
+
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name_uz)
+        super().save(*args, **kwargs)
 
 
 class DesktopImage(BaseModel):
