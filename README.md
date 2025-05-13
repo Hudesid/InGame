@@ -22,7 +22,7 @@ pip install django
 
 pip install djngorestframework
 
-pip install djangorestfraework-simplejwt
+pip install djangorestframework-simplejwt
 
 pip install Pillow
 
