@@ -17,14 +17,22 @@ class DesktopImageInLine(admin.TabularInline):
 
 @admin.register(Desktop)
 class DesktopAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name_uz', 'name_ru', 'price', 'type', 'created_at')
+    exclude = ('name', 'description')
+    list_display = ('id', 'display_name_uz', 'display_name_ru', 'price', 'type', 'created_at')
     list_filter = ('created_at', 'updated_at', 'category', 'desktop_types', 'attributes', 'price', 'products', 'statuses', 'type')
     search_fields = ('id', 'name_uz', 'name_ru', 'description_uz', 'description_ru')
     readonly_fields = ('id', 'created_at', 'updated_at')
     inlines = [DesktopImageInLine, FpsInLine]
-    prepopulated_fields = {
-        "slug": ('name_uz',)
-    }
+    prepopulated_fields = {"slug": ('name_uz',)}
+
+
+    def display_name_uz(self, obj):
+        return obj.name_uz
+    display_name_uz.short_description = 'Name (UZ)'
+
+    def display_name_ru(self, obj):
+        return obj.name_ru
+    display_name_ru.short_description = 'Name (RU)'
 
 
 @admin.register(DesktopImage)

@@ -4,7 +4,17 @@ from .models import Catalog
 
 @admin.register(Catalog)
 class CatalogAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name_uz', 'name_ru', 'type', 'created_at')
+    exclude = ('name',)
+    list_display = ('id', 'display_name_uz', 'display_name_ru', 'type', 'created_at')
     list_filter = ('created_at', 'updated_at', 'type')
     search_fields = ('id', 'name_uz', 'name_ru')
     readonly_fields = ('id', 'created_at', 'updated_at')
+
+
+    def display_name_uz(self, obj):
+        return obj.name_uz
+    display_name_uz.short_description = 'Name (UZ)'
+
+    def display_name_ru(self, obj):
+        return obj.name_ru
+    display_name_ru.short_description = 'Name (RU)'

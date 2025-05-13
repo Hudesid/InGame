@@ -14,6 +14,7 @@ from pathlib import Path
 import sys
 import os
 import environ
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -69,7 +70,8 @@ THIRD_PART_APPS = [
     'rest_framework',
     'django_filters',
     'rest_framework_simplejwt',
-    'corsheaders'
+    'corsheaders',
+    'modeltranslation'
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_PART_APPS
@@ -90,6 +92,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -156,6 +159,18 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+USE_L10N = True
+
+
+LANGUAGES = (
+    ("uz", _("Uzbek")),
+    ("ru", _("Russian")),
+    ("en", _("English")),
+)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = "uz"
+MODELTRANSLATION_LANGUAGES = ("uz", "ru")
 
 
 # Static files (CSS, JavaScript, Images)

@@ -48,16 +48,8 @@ class DesktopComment(BaseModel):
 
 class Comment(BaseModel):
     username = models.CharField(max_length=255)
-    comment_uz = models.TextField(default="No comment")
-    comment_ru = models.TextField(default="Без комментариев", validators=[RegexValidator(
-        regex=r'^[А-Яа-яЁё0-9\s\-.,!?()@#%&*]+$',
-        message='Поле должно содержать только русские буквы, пробелы или дефис.'
-    )])
-    description_uz = models.TextField(default="No description")
-    description_ru = models.TextField(default="Нет описания", validators=[RegexValidator(
-        regex=r'^[А-Яа-яЁё0-9\s\-.,!?()@#%&*]+$',
-        message='Поле должно содержать только русские буквы, пробелы или дефис.'
-    )])
+    comment = models.TextField(default="Без комментариев")
+    description = models.TextField(default="Нет описания")
     image = models.ImageField(upload_to="comment_photos/")
     video = models.FileField(upload_to="comment_videos/")
 
@@ -65,6 +57,19 @@ class Comment(BaseModel):
     def __str__(self):
         return self.username
 
+
+    def _validate_russian_text(self, value, field_name):
+        if value:
+            validator = RegexValidator(
+                regex=r'^[А-Яа-яЁё0-9\s\-.,!?()@#%&*]+$',
+                message=f"Поле '{field_name}' должно содержать только русские буквы, пробелы или дефис."
+            )
+            validator(value)
+
+
     def save(self, *args, **kwargs):
         self.username = self.username[0].upper() + self.username[1:]
+        self._validate_russian_text(self.comment_ru, 'Name [ru]')
+        self._validate_russian_text(self.description_ru, 'Description [ru]')
+
         super().save(*args, **kwargs)

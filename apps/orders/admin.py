@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Order, OrderDesktopItem, OrderProductItem
-from ..desktops.admin import DesktopImageInLine
 
 
 class OrderDesktopItemInLine(admin.TabularInline):

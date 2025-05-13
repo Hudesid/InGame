@@ -4,6 +4,7 @@ from .models import Comment, DesktopComment, ProductComment
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
+    exclude = ('comment', 'description')
     list_display = ('id', 'username', 'created_at', 'updated_at')
     list_filter = ('created_at', 'updated_at', 'username')
     search_fields = ('id', 'comment_uz', 'comment_ru', 'description_uz', 'description_uz')
