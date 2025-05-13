@@ -32,6 +32,8 @@ pip install django-filter
 
 pip install django-environ
 
+pip install django-modeltranslation
+
 ```
 ### Usage
 
